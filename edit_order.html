@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if order %}
+    <title>Edit Lift Order - {{ order.id }}</title>
+    {% else %}
+    <title>Create New Lift Order</title>
+    {% endif %}
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        h1 { text-align: center; }
+        form { display: grid; grid-template-columns: 150px 1fr; gap: 15px; align-items: center; }
+        label { font-weight: bold; text-align: right; }
+        input, textarea { padding: 8px; font-size: 16px; width: 100%; box-sizing: border-box; }
+        .form-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 10px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; border: none; }
+        .save-btn { background-color: #28a745; color: white; }
+        .cancel-btn { background-color: #6c757d; color: white; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    {% if order %}
+    <h1>Edit Lift Order #{{ order.id }}</h1>
+    {% else %}
+    <h1>Create New Lift Order</h1>
+    {% endif %}
+
+    <form action="/save" method="post">
+        <!-- Hidden input to pass the original order ID when editing -->
+        {% if order %}
+            <input type="hidden" name="original_order_id" value="{{ order.id }}">
+        {% endif %}
+
+        <label for="order_id">Order Number:</label>
+        <input type="text" id="order_id" name="order_id" value="{{ order.id if order else '' }}" required>
+
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name" value="{{ order.customer_name if order else '' }}" required>
+
+        <label for="order_date">Order Date:</label>
+        <input type="date" id="order_date" name="order_date" value="{{ order.order_date if order else '' }}" required>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" value="{{ order.status if order else '' }}" required>
+
+        <label for="shipping_address">Shipping Address:</label>
+        <textarea id="shipping_address" name="shipping_address" rows="3" required>{{ order.shipping_address if order else '' }}</textarea>
+
+        <label for="total_amount">Total Amount:</label>
+        <input type="number" step="0.01" id="total_amount" name="total_amount" value="{{ order.total_amount if order else '0.00' }}" required>
+
+        <label for="amount_paid">Amount Paid:</label>
+        <input type="number" step="0.01" id="amount_paid" name="amount_paid" value="{{ order.amount_paid if order else '0.00' }}" required>
+
+        <!-- NOTE: For simplicity, this form doesn't handle editing line items. -->
+        <!-- A real-world app would use JavaScript to manage this dynamically. -->
+
+        <div class="form-actions">
+            {% if order %}
+                <a href="{{ url_for('find_order_get', order_id=order.id) }}" class="cancel-btn">Cancel</a>
+            {% else %}
+                 <a href="/" class="cancel-btn">Cancel</a>
+            {% endif %}
+            <button type="submit" class="save-btn">Save Changes</button>
+        </div>
+    </form>
+
+</body>
+</html>

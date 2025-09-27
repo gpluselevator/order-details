@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lift Order Lookup</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        h1 { text-align: center; }
+        form { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        input[type="text"] { padding: 8px; font-size: 16px; }
+        button { padding: 8px 16px; font-size: 16px; cursor: pointer; }
+        .error { color: red; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Find Your Lift Order</h1>
+    <form action="/order" method="post">
+        <label for="order_id">Enter Lift Order Number:</label>
+        <input type="text" id="order_id" name="order_id" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <p style="text-align: center;"><a href="/new">Or, Create a New Lift Order</a></p>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

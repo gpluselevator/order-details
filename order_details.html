@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lift Order Details - {{ order.id }}</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        h1 { text-align: center; }
+        .detail-section { margin-bottom: 20px; }
+        .detail-section h2 { border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { font-weight: bold; text-align: right; }
+        .actions { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .financials { border: 1px solid #007bff; border-radius: 5px; padding: 15px; margin-top: 15px; background-color: #f8f9fa; }
+        .edit-btn { background-color: #007bff; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Lift Order Details for #{{ order.id }}</h1>
+
+    <div class="detail-section">
+        <h2>Summary</h2>
+        <p><strong>Customer:</strong> {{ order.customer_name }}</p>
+        <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Shipping Address:</strong> {{ order.shipping_address }}</p>
+    </div>
+
+    <div class="detail-section">
+        <h2>Items</h2>
+        <table>
+            <tr>
+                <th>SKU</th><th>Item Name</th><th>Quantity</th><th>Price</th>
+            </tr>
+            {% for item in order['items'] %}
+            <tr>
+                <td>{{ item.sku }}</td><td>{{ item.name }}</td><td>{{ item.quantity }}</td><td>${{ "%.2f"|format(item.price) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="financials">
+            <p class="total">Total Amount: ${{ "%.2f"|format(order.total_amount) }}</p>
+            <p class="total">Amount Paid: ${{ "%.2f"|format(order.amount_paid) }}</p>
+            <hr>
+            <p class="total">Pending Amount: ${{ "%.2f"|format(order.total_amount - order.amount_paid) }}</p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="/">‹ Search for another lift order</a>
+        <a href="{{ url_for('edit_order', order_id=order.id) }}" class="edit-btn">Edit This Order</a>
+    </div>
+</body>
+</html>

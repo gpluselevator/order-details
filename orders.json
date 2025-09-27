@@ -1,0 +1,46 @@
+{
+  "ORD1001": {
+    "customer_name": "First",
+    "order_date": "2025-09-02",
+    "status": "Completed",
+    "shipping_address": "12212 df df",
+    "items": [
+      {
+        "sku": "LP-01",
+        "name": "Laptop Pro",
+        "quantity": 1,
+        "price": 1200.0
+      },
+      {
+        "sku": "MS-02",
+        "name": "Wireless Mouse",
+        "quantity": 1,
+        "price": 25.5
+      }
+    ],
+    "total_amount": 25000.0,
+    "amount_paid": 15000.0
+  },
+  "ORD1002": {
+    "customer_name": "Bob Johnson",
+    "order_date": "2023-10-27",
+    "status": "Processing",
+    "shipping_address": "456 Oak Ave, Sometown, USA",
+    "items": [
+      {
+        "sku": "KB-03",
+        "name": "Mechanical Keyboard",
+        "quantity": 1,
+        "price": 75.0
+      },
+      {
+        "sku": "HD-04",
+        "name": "4K Monitor",
+        "quantity": 2,
+        "price": 350.0
+      }
+    ],
+    "total_amount": 775.0,
+    "amount_paid": 0.0
+  }
+}
