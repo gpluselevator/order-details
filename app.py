@@ -95,4 +95,4 @@ def save_order():
 
 if __name__ == '__main__':
     # The host='0.0.0.0' makes it accessible from your network
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001)
